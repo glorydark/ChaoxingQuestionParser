@@ -1,4 +1,4 @@
-package org.example;
+package glorydark.tool;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +15,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class HtmlParser {
+
+    public static String path = "C:/Users/hp/Desktop/";
+
     public static void main(String[] args) {
+
         List<String> outputLines = new ArrayList<>();
 
         // 从剪切板获取HTML内容
@@ -28,8 +32,9 @@ public class HtmlParser {
         // 使用Jsoup解析HTML
         Document doc = Jsoup.parse(html);
 
+        // 获取题目解析的单元名称
         String name = doc.selectFirst("h2.mark_title").text();
-        System.out.println(name);
+        System.out.println("导出名称: " + name);
         // 获取包含题目的div
         Elements questionDivs = doc.select("div.singleQuesId");
 
@@ -57,7 +62,7 @@ public class HtmlParser {
 
         try {
             // 创建 BufferedWriter 对象，用于写入文件
-            BufferedWriter writer = new BufferedWriter(new FileWriter("C:/Users/hp/Desktop/" + name.replace(" ", "") + ".txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(path + name.replace(" ", "") + ".txt"));
 
             // 逐行写入文本内容
             for (String line : outputLines) {
